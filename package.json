@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
+        "@types/sass": "^1.45.0",
         "axios": "^1.4.0",
         "clsx": "^1.2.1",
         "css-loader": "^6.7.3",
@@ -21,7 +22,8 @@
         "react-icons": "^4.8.0",
         "react-redux": "^8.0.5",
         "react-router": "^6.10.0",
-        "react-router-dom": "^6.11.2"
+        "react-router-dom": "^6.11.2",
+        "sass": "^1.62.1"
     },
     "devDependencies": {
         "@types/react": "^18.0.37",
