@@ -2,8 +2,10 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import styles from './AuthPage.module.sass'
 import { Box, Button, Checkbox, FormControlLabel, TextField } from '@mui/material'
 import { Link } from 'react-router-dom'
+import Cookie from 'js-cookie'
+import { createUser } from '../../api/requests'
 
-interface registerData {
+export interface registerData {
     firstname: string
     lastname: string
     username: string
@@ -49,6 +51,9 @@ export const RegisterPage = () => {
 
     const submit = (e: FormEvent) => {
         e.preventDefault()
+        createUser(user).then((resp: { jwt: string; user: object }) => {
+            Cookie.set('token', resp.jwt, { expires: 7 })
+        })
     }
 
     return (
@@ -61,6 +66,7 @@ export const RegisterPage = () => {
                         label="Имя"
                         variant="outlined"
                         name="firstname"
+                        required
                         onChange={change}
                     />
                     <TextField
@@ -68,6 +74,7 @@ export const RegisterPage = () => {
                         label="Фамилия"
                         variant="outlined"
                         name="lastname"
+                        required
                         onChange={change}
                     />
                 </Box>
@@ -76,6 +83,7 @@ export const RegisterPage = () => {
                     label="Никнейм"
                     variant="outlined"
                     name="username"
+                    required
                     onChange={change}
                 />
                 <TextField
@@ -83,6 +91,7 @@ export const RegisterPage = () => {
                     label="Email"
                     variant="outlined"
                     name="email"
+                    required
                     onChange={change}
                 />
 
@@ -94,6 +103,7 @@ export const RegisterPage = () => {
                         type={showPassword ? 'text' : 'password'}
                         onChange={change}
                         name="password"
+                        required
                         helperText={user.password !== confirmPass && `Пароли не совпадают`}
                     />
                     <TextField
@@ -115,7 +125,7 @@ export const RegisterPage = () => {
                     }
                 />
 
-                <Button variant="contained" disabled={!regSubmit}>
+                <Button variant="contained" type="submit" disabled={!regSubmit}>
                     Создать аккаунт
                 </Button>
                 <span>
